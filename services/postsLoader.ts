@@ -1,0 +1,83 @@
+// @ts-ignore
+import matter from 'gray-matter';
+import { BlogPost } from '../types';
+
+// 动态导入所有 markdown 文件
+const markdownFiles = (import.meta as any).glob('../posts/*.md', { 
+  query: '?raw', 
+  import: 'default',
+  eager: true 
+}) as Record<string, string>;
+
+console.log('📚 加载的文章文件:', Object.keys(markdownFiles));
+
+// 解析并加载所有文章
+export function loadPosts(): BlogPost[] {
+  const posts: BlogPost[] = [];
+
+  for (const [path, content] of Object.entries(markdownFiles)) {
+    try {
+      // 提取文件名
+      const fileName = path.split('/').pop() || '';
+      
+      // 忽略以 _ 或 . 开头的文件（如 _template.md, README.md）
+      if (fileName.startsWith('_') || fileName.startsWith('.') || fileName.toUpperCase() === 'README.MD') {
+        continue;
+      }
+      
+      // 解析 frontmatter
+      const { data } = matter(content);
+      
+      // 验证必需字段
+      if (!data.id || !data.slug || !data.title || !data.date) {
+        console.warn(`跳过文件 ${fileName}: 缺少必需字段`);
+        continue;
+      }
+
+      // 构建文章对象
+      const post: BlogPost = {
+        id: String(data.id),
+        slug: data.slug,
+        title: data.title,
+        summary: data.summary || '',
+        date: data.date,
+        author: data.author || 'Anonymous',
+        authorAvatar: data.authorAvatar,
+        readTime: data.readTime || '5 min',
+        fileName: fileName,
+        tags: data.tags || [],
+        category: data.category || 'Thoughts',
+        featured: data.featured || false,
+        coverImage: data.coverImage,
+      };
+
+      posts.push(post);
+    } catch (error) {
+      console.error(`解析文件 ${path} 时出错:`, error);
+    }
+  }
+
+  // 按日期排序（最新的在前）
+  return posts.sort((a, b) => {
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  });
+}
+
+// 导出加载的文章
+export const posts = loadPosts();
+
+// 根据 slug 获取文章
+export function getPostBySlug(slug: string): BlogPost | undefined {
+  return posts.find(post => post.slug === slug);
+}
+
+// 根据分类获取文章
+export function getPostsByCategory(category: string): BlogPost[] {
+  return posts.filter(post => post.category === category);
+}
+
+// 获取最新的 N 篇文章
+export function getLatestPosts(count: number): BlogPost[] {
+  return posts.slice(0, count);
+}
+
