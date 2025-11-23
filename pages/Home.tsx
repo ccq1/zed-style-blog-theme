@@ -8,7 +8,7 @@ import { ChevronRight } from 'lucide-react';
 
 const CATEGORIES = [
   { id: 'all', label: 'All Posts' },
-  { id: 'featured', label: 'Featured' },
+  { id: 'featured', label: 'Latest' },
   { id: 'Tutorials', label: 'Tutorials' },
   { id: 'Projects', label: 'Projects' },
   { id: 'Thoughts', label: 'Thoughts' },
@@ -18,14 +18,19 @@ const CATEGORIES = [
 const Home: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState('all');
 
-  // Logic for featured section
-  const featuredPosts = posts.filter(p => p.featured).slice(0, 2); // Top 2 featured
-  const remainingFeatured = posts.filter(p => p.featured).slice(2, 5); // Next 3 for second row
+  // 按日期排序文章（最新的在前）
+  const sortedPosts = [...posts].sort((a, b) => {
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  });
+
+  // Logic for featured section - 显示最新的5篇文章
+  const featuredPosts = sortedPosts.slice(0, 2); // 最新的2篇 - 大卡片
+  const remainingFeatured = sortedPosts.slice(2, 5); // 第3-5篇 - 小卡片
 
   // Logic for bottom list
-  const filteredPosts = posts.filter(post => {
+  const filteredPosts = sortedPosts.filter(post => {
     if (activeCategory === 'all') return true;
-    if (activeCategory === 'featured') return post.featured;
+    if (activeCategory === 'featured') return sortedPosts.slice(0, 5).includes(post);
     return post.category === activeCategory;
   });
 
@@ -84,7 +89,7 @@ const Home: React.FC = () => {
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ duration: 0.3, delay: index * 0.1 }}
                     >
-                      <FeaturedCard post={post} size="large" />
+                      <FeaturedCard post={post} size="large" showNewestBadge={index === 0} />
                     </motion.div>
                 ))}
             </div>
@@ -156,7 +161,7 @@ const Home: React.FC = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.1, ease: "easeInOut" }}
+                    transition={{ duration: 0.01, ease: "easeInOut" }}
                     className="flex flex-col space-y-2"
                   >
                     {filteredPosts.length > 0 ? (

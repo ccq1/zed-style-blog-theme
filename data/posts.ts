@@ -88,5 +88,20 @@ export const posts: BlogPost[] = [
     fileName: 'zed.md',
     tags: ['React', 'Snippets'],
     category: 'Snippets'
+  },
+  {
+    id: '7',
+    slug: 'test-blog',
+    title: 'Test Blog',
+    summary: 'This is a test blog post.',
+    date: 'Nov 24, 2025',
+    author: 'Alex Dev',
+    authorAvatar: 'https://avatars.githubusercontent.com/u/9919?v=4',
+    readTime: '1 min',
+    fileName: 'test-blog.md',
+    tags: ['Test', 'Blog'],
+    category: 'Projects',
+    featured: true,
+    coverImage: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=2070&auto=format&fit=crop'
   }
 ];
