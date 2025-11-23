@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Fuse from 'fuse.js';
-import { posts } from '../data/posts';
+import { posts } from '../services/postsLoader';
 import { Search, ArrowRight, X } from 'lucide-react';
 import { BlogPost } from '../types';
 

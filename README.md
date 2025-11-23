@@ -10,3 +10,4 @@ A modern, minimalist blog template for developers.
 # This project is being continuously updated
 
 In the future, the article system will be improved
+

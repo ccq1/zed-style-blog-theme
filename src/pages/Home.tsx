@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { posts } from '../data/posts';
+import { posts } from '../services/postsLoader';
 import PostRow from '../components/PostRow';
 import FeaturedCard from '../components/FeaturedCard';
 import Divider from '../components/Divider';
@@ -17,6 +17,11 @@ const CATEGORIES = [
 
 const Home: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState('all');
+  
+  // 调试信息
+  console.log('🏠 Home 组件加载');
+  console.log('📦 导入的 posts 数量:', posts.length);
+  console.log('📋 posts 内容:', posts);
 
   // 按日期排序文章（最新的在前）
   const sortedPosts = [...posts].sort((a, b) => {
