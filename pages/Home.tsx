@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { posts } from '../data/posts';
 import PostRow from '../components/PostRow';
 import FeaturedCard from '../components/FeaturedCard';
@@ -65,29 +66,59 @@ const Home: React.FC = () => {
       </div>
 
       {/* Top Featured Section */}
-      {activeCategory === 'all' && (
-          <section className="max-w-7xl mx-auto px-6 pt-20 pb-16 relative z-10">
+      <AnimatePresence>
+        {activeCategory === 'all' && (
+          <motion.section 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.4 }}
+            className="max-w-7xl mx-auto px-6 pt-20 pb-16 relative z-10"
+          >
             {/* Top 2 large cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                {featuredPosts.map(post => (
-                    <FeaturedCard key={post.id} post={post} size="large" />
+                {featuredPosts.map((post, index) => (
+                    <motion.div
+                      key={post.id}
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.3, delay: index * 0.1 }}
+                    >
+                      <FeaturedCard post={post} size="large" />
+                    </motion.div>
                 ))}
             </div>
             {/* Bottom 3 smaller cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {remainingFeatured.map(post => (
-                    <FeaturedCard key={post.id} post={post} size="small" />
+                {remainingFeatured.map((post, index) => (
+                    <motion.div
+                      key={post.id}
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.3, delay: 0.2 + index * 0.1 }}
+                    >
+                      <FeaturedCard post={post} size="small" />
+                    </motion.div>
                 ))}
             </div>
-          </section>
-      )}
+          </motion.section>
+        )}
+      </AnimatePresence>
 
       {/* Divider - Full width */}
-      {activeCategory === 'all' && (
-        <div className="w-full">
-          <Divider patternId="divider-2" />
-        </div>
-      )}
+      <AnimatePresence>
+        {activeCategory === 'all' && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="w-full"
+          >
+            <Divider patternId="divider-2" />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Main Content: Sidebar + List */}
       <div className="max-w-7xl mx-auto px-6 pt-20 relative z-10">
@@ -119,27 +150,41 @@ const Home: React.FC = () => {
 
             {/* Right Column - Post List */}
             <div className="md:col-span-9 lg:col-span-10">
-                <div className="mb-6 flex items-center gap-4 pb-2 border-b border-zinc-800">
-                    <h2 className="text-sm font-mono text-zinc-400 uppercase tracking-widest">
-                        {CATEGORIES.find(c => c.id === activeCategory)?.label}
-                    </h2>
-                    <span className="h-px flex-grow bg-zinc-800"></span>
-                    <span className="text-xs font-mono text-zinc-600">
-                        {filteredPosts.length}
-                    </span>
-                </div>
-                
-                <div className="flex flex-col space-y-1">
+                <AnimatePresence mode="wait">
+                  <motion.div 
+                    key={activeCategory}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.1, ease: "easeInOut" }}
+                    className="flex flex-col space-y-2"
+                  >
                     {filteredPosts.length > 0 ? (
-                        filteredPosts.map((post) => (
-                        <PostRow key={post.id} post={post} />
+                        filteredPosts.map((post, index) => (
+                        <motion.div
+                          key={post.id}
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ 
+                            duration: 0.3, 
+                            delay: index * 0.05,
+                            ease: "easeOut" 
+                          }}
+                        >
+                          <PostRow post={post} />
+                        </motion.div>
                         ))
                     ) : (
-                        <div className="py-12 text-center text-zinc-500 font-mono text-sm">
+                        <motion.div 
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          className="py-12 text-center text-zinc-500 font-mono text-sm"
+                        >
                             ./no_posts_found
-                        </div>
+                        </motion.div>
                     )}
-                </div>
+                  </motion.div>
+                </AnimatePresence>
             </div>
         </div>
       </div>

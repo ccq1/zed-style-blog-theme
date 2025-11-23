@@ -5,6 +5,7 @@ export interface BlogPost {
   summary: string;
   date: string;
   author: string;
+  authorAvatar?: string; // URL for author avatar
   readTime: string;
   fileName: string; // The markdown file name in public/posts/
   tags: string[];
