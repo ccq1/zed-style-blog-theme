@@ -1,13 +1,14 @@
 ---
-id: 'unique-id'
-slug: 'url-friendly-slug'
-title: '你的文章标题'
-summary: '文章的简短摘要，60-120个字符'
-date: 'Nov 24, 2025'
-author: '作者名'
+# 必填字段
+slug: 'url-friendly-slug'              # URL 路径，必须唯一，小写+连字符
+title: "你的文章标题"                  # 文章标题
+date: 'Nov 24, 2025'                  # 发布日期
+author: "作者名"                      # 作者名
+category: 'Tutorials'                 # 分类：Tutorials | Projects | Thoughts | Snippets
+# 可选字段
+summary: "文章的简短摘要，60-120个字符。如果包含单引号，请使用双引号包裹。"
 authorAvatar: 'https://avatars.githubusercontent.com/u/YOUR_ID?v=4'
 readTime: '5 min'
-category: 'Tutorials'
 tags: ['Tag1', 'Tag2', 'Tag3']
 coverImage: 'https://images.unsplash.com/photo-xxx'
 ---

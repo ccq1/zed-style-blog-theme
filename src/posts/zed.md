@@ -1,8 +1,7 @@
 ---
-id: '3'
 slug: 'zed-editor-experience'
 title: 'Zed Is Our Office'
-summary: 'A look at how we use Zed\'s native collaboration features to run our entire company.'
+summary: "A look at how we use Zed's native collaboration features to run our entire company."
 date: 'Nov 13, 2025'
 author: 'Joseph Lyons'
 authorAvatar: 'https://avatars.githubusercontent.com/u/19867440?v=4'

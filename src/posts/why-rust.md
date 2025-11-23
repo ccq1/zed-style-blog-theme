@@ -1,5 +1,4 @@
 ---
-id: '2'
 slug: 'why-rust'
 title: 'Why I am Learning Rust in 2025'
 summary: 'Systems programming is no longer just for OS developers. Here is why I jumped in.'

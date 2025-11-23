@@ -1,5 +1,5 @@
 export interface BlogPost {
-  id: string;
+  id: string; // 自动生成，用户无需填写
   slug: string;
   title: string;
   summary: string;

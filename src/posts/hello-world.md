@@ -1,5 +1,4 @@
 ---
-id: '1'
 slug: 'hello-world'
 title: 'Introducing Agent Extensions'
 summary: 'Zed launches Agent Server Extensions, enabling one-click installation of ACP-compatible agents.'

@@ -1,8 +1,7 @@
 ---
-id: '7'
 slug: 'ai-70-problem-addy-osmani'
-title: 'AI\'s 70% Problem'
-summary: 'With Addy Osmani - AI can rapidly produce 70% of a solution, but that final 30% remains as challenging as ever.'
+title: "AI's 70% Problem"
+summary: "With Addy Osmani - AI can rapidly produce 70% of a solution, but that final 30% remains as challenging as ever."
 date: 'Nov 24, 2025'
 author: 'Addy Osmani'
 authorAvatar: 'https://avatars.githubusercontent.com/u/78813459?v=4'

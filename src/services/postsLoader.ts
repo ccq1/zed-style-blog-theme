@@ -39,15 +39,15 @@ export function loadPosts(): BlogPost[] {
       // 解析 frontmatter
       const { data } = matter(content);
       
-      // 验证必需字段
-      if (!data.id || !data.slug || !data.title || !data.date) {
-        console.warn(`跳过文件 ${fileName}: 缺少必需字段`);
+      // 验证必需字段（id 不再需要，系统自动生成）
+      if (!data.slug || !data.title || !data.date) {
+        console.warn(`跳过文件 ${fileName}: 缺少必需字段 (slug, title, date)`);
         continue;
       }
 
       // 构建文章对象
       const post: BlogPost = {
-        id: String(data.id),
+        id: data.slug, // 使用 slug 作为 id（唯一标识）
         slug: data.slug,
         title: data.title,
         summary: data.summary || '',
