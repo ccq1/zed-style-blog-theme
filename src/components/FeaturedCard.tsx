@@ -34,7 +34,7 @@ const FeaturedCard: React.FC<FeaturedCardProps> = ({ post, size = 'large', showN
         <div
           className="absolute w-[95%] h-[95%]  left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center  "
           style={{
-            backgroundImage: `url(${isSmall ? smallCardImg : bigCardImg})`,
+            backgroundImage: `url(${isSmall ? '/src/imgs/small_card.png' : '/src/imgs/big_card.png'})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
